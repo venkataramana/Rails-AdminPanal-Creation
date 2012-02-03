@@ -1,0 +1,60 @@
+<style>
+a{color:#1B7D84;}
+ a:link{color:#172C2D ;text-decoration:none;font-weight:bold;}
+a:hover{color:#912A75 ;text-decoration:underline;font-weight:bold;}
+a:active{color:#CCB616;text-decoration:none; font-weight:bold;}
+</style>
+                <table width="1000" align="center" bgcolor="#D3CBCB">
+                        <tr>
+                                <td style="text-align:left;">
+                                        <%= link_to "Visitor SignUp", "/visitors/new" %>
+                                </td>
+                                <td style="background-color:black ; outline:1px solid white; color:white; text-align:center"> <strong>--- Admin Login Page ---</strong></td>
+                                <td style="text-align:right;">
+                                        <%= link_to "Admin SignUp", "/admin/administrators/new" %>
+                                </td>
+                        </tr>
+
+                <table>
+
+        </br>
+
+        <%form_for  :administrator, @administrator, :url=> {:action=>"login"} do|f| %>
+
+                <table align="center" style="background-color:white; outline:1px solid yellow; color:black">
+                                <tr> <td> <sup style="color:red"> * </sup> <%=flash[:notice] %>  </td> </tr>
+                </table>
+
+        </br>
+                <table align="center" width="33%" style="background-image:url(/images/text7.jpeg) ; height:180px; width:270px;">
+
+	                <tr>
+		                <td style="font-size:12px; color:white">Username:</td>
+		                <td>
+		                        <%= text_field_tag :username, params[:username], :style=>'width:170px ; height:25px' %>
+	                        </td>
+                        </tr>
+                        <tr>
+                                <td style="font-size:12px; color:white"> Password: </td>
+                                <td>
+		                        <%= password_field_tag :password, params[:password] , :style=>'width:170px; height:25px' %>
+                                </td>
+                        </tr>
+                        </tr>
+                                <td colspan="2" align="center">
+	                                <%=f.submit "Login"%>
+                                </td>
+	                </tr>
+
+                </table>
+        <% end %>
+
+<script type="text/javascript">
+ function centrwin()
+ {
+  x=window.open("/admin/admin_area","gg","location=1, menubar=1, scrollbars=1, status=1, height=250, width=400");
+    x.moveTo(400,250);
+  }
+
+</script>
+

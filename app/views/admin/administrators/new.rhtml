@@ -1,0 +1,109 @@
+
+                              <table width="1000" align="center" bgcolor="black">
+                                <tr>
+                                        <td width="15%" style="background-image:url(/images/grn.gif) ; outline:1px solid white; color:#A27D50; font-weight:bold">
+                                                  <%= link_to "Administrators", "/admin/administrators"%>
+                                        </td>
+
+                                        <td width="15%" style="background-image:url(/images/grn.gif) ; outline:1px solid white; color:#A27D50; font-weight:bold">
+                                                  <%= link_to "Users", "/admin/users"%>
+                                        </td>
+                                         <td width="60%" style="background-color:black ; outline:1px solid white; color:white; text-align:center; color:yellow">
+                                                        Welcome to <%= session[:administrator_name] %>
+                                           </td>
+                                          <td style="background-color:#006666; outline:1px solid white;">
+                                                  <%#= link_to "Logout", admin_admin_area_path(session[:administrator_id]), :method=> "delete"%>
+                                          <% unless session[:administrator_id].nil? %>
+                                                  <%#= link_to 'Logout', admin_admin_area_path(session[:administrator_id]), :method => :delete %>
+                                                  <%= link_to image_tag("logout.jpeg", :size => "100x25"), admin_admin_area_path(session[:administrator_id]), :method=>:delete%>
+                                          <%end %>
+                                          </td>
+                               </tr>
+                            </table>
+</br>
+
+
+                                <table>
+                                        <tr>
+                                                <td style="background-image:url(/images/grn.gif) ; outline:1px solid white; color:#A27D50; font-weight:bold">
+                                                      <%= link_to "Back to Admin", "/admin/administrators"%>
+                                                </td>
+                                        </tr>
+                                </table>
+
+                <% form_for @administrator, :administrator, :url=>{:action=> "create"} do |f|%>
+
+                <table align="center">
+                        <tr>
+                                <td style="background-color:#F4EFE2; outline:1px solid black; color:#A27D50; font-size:14px" >
+		                        <%=error_messages_for(:administrator, :order=>[:admin_name,:username, :password,:gender, :dob])%>
+	                        </td>
+                        </tr>
+                </table>
+
+                <table align="center" style="background-image:url(/images/postcard.png); height:350px ;width:600px; color:#A27D50; font-size:14px">
+
+                                <tr>
+                                        <td height=190px>
+                                                &nbsp;
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td >
+                                                &nbsp;
+                                        </td>
+                                        <td>
+                                                <table bgcolor="#F4EFE2" style="height:100px">
+                                                        <tr>
+                                                                <td>
+                                                                        <table>
+                                                                                <tr>
+                                                                                        <td style="color:#AE5B52; font-size:15px;">Admin Name: </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td style="color:#AE5B52; font-size:15px">User Name:  </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td style="color:#AE5B52; font-size:15px"> Password: </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td style="color:#AE5B52; font-size:15px"> Gender </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td style="color:#AE5B52; font-size:15px"> Date Of Birth: </td>
+                                                                                </tr>
+                                                                        </table>
+                                                                </td>
+                                                                 <td>
+                                                                        <table>
+                                                                                <tr>
+                                                                                        <td> <%=f.text_field :admin_name, :size=> "20x10"%> </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td><%=f.text_field :username, :size=> "20x10"%> </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td> <%=f.text_field :password, :size=> "20x10"%> </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td style="color:#666562; font-size:15px;">
+                                                                                                <%=radio_button("administrator", :gender, "male")%> Male
+                                                                                                <%=radio_button("administrator", :gender, "female")%> Female
+                                                                                         </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td> <%=calendar_date_select_tag("administrator[dob]")%> </td>
+                                                                                </tr>
+                                                                        </table>
+                                                                 </td>
+                                                        </tr>
+                                                </table>
+                                                <div style="background-color:#F4EFE2" align="center">
+                                                        <%=f.submit "Register" %>
+                                                </div>
+                                        </td>
+                                <tr>
+                </table>
+
+        <%end%>
+

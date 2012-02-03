@@ -1,0 +1,153 @@
+
+
+              <table width="1000" align="center" bgcolor="black">
+                <tr>
+                        <td width="10%" style="background-image:url(/images/grn.gif) ; outline:1px solid white; color:#A27D50; font-weight:bold">
+                                  <%= link_to_unless_current "Visitors", "/visitors", :title=>"Visitors Page"%>
+                        </td>
+
+                        <td width="10%" style="background-image:url(/images/grn.gif) ; outline:1px solid white; color:#A27D50; font-weight:bold">
+                                  <%= link_to_unless_current "Users", "/admin/users", :title=>"Users Page"%>
+                        </td>
+                        <td width="14%" style="background-image:url(/images/pink.jpeg) ; width:50px;" >
+                                &nbsp;
+                         </td>
+                          <td width="50%" style="background-color:black ; outline:1px solid white; color:white; text-align:center; color:yellow">
+                                        Welcome to <%= session[:visitor_name] %>
+                           </td>
+                           <td width="14%" style="background-image:url(/images/red.gif) ; width:50px;" >
+                                &nbsp;
+                         </td>
+                          <td width="13%" style="background-image:url(/images/grn.gif) ; outline:1px solid white; color:#A27D50; font-weight:bold">
+                                  <%= link_to_unless_current "New Visitor", "/visitors/new", :title=>"Click to add new visitor"%>
+                          </td>
+                          <td style="background-color:#006666; outline:1px solid white;">
+                                  <%#= link_to "logout", session_path(session[:visitor_id]), :method=>"delete"%>
+                                  <%= link_to image_tag("logout.jpeg", :size => "70x25"), session_path(session[:visitor_id]), :method=>:delete, :title=>"Visitor Logout"%>
+                          </td>
+               </tr>
+            </table>
+
+        </br>
+        <b style="background-color:white; color:red; text-align:left; height:30px">
+                               Visitors
+                        </b>
+
+
+            <table align="center" style="background-color:white; outline:1px solid white; color:white; background: none repeat scroll 0 0 rgba(82, 82, 82, 0.7);">
+                        <tr>
+                               <td  style="background-image:url(/images/search.png) ; background-repeat:no-repeat;">
+                                       <% form_tag  visitors_path, :method => 'get', :id=>'form' do %>
+                                        &nbsp; &nbsp; &nbsp; <sub><%= text_field_tag :search, params[:search], :size=>15, :placeholder=>"Search here:"%> </sub>&nbsp;
+                                                <%#=select_tag 'option', options_for_select([["Select Field",""],["Name","name"], ["Email","email"]], params[:option])%>
+                                                <%=select_tag 'option', options_for_select([["Select Field",""],["Name","name"], ["Email","email"]], params[:option]), :onchange=>"return searching()" %>
+                                               <%= submit_tag "Search" %> </br></br>
+                                               <% for i in "a".."z"%>
+                                               <b style="background-color:white; color:red; text-align:center; height:20px; outline:1px solid black">
+	                                                <%=link_to_unless_current i, :controller=>"visitors", :action=> :index, :search => i%>
+	                                        </b>
+                                                <%end%>
+                                        <% end %>
+                                </td>
+                        </tr>
+                </table>
+        </br>
+<%if @visitors.size > 0 %>
+                <table align="center" style="background-color:white; outline:1px solid white; color:white; background: none repeat scroll 0 0 rgba(82, 82, 82, 0.7);">
+                      <tr> <td>  <%= will_paginate @visitors%> </td> </tr>
+                </table>
+                </br>
+                        <%#form_for @administrators, :url=>{:action=> "index"}, :html=>{:id=>"f",:name=>"f"} do |f|%>
+                        <% form_for :visitors, @visitors, :html => {:id=>'frmlist'}, :url => { :action => "list_action" }  do |f| %>
+
+
+
+                        <table width="90%" align="center" border="1" rules="cols" style="background-color:#1FAD66; color:white; font-size:14px">
+                                <tr>
+                                        <td style="background-color:#A9FFFE; color:#705A03; text-align:left; height:20px">
+
+                                        <%#=select("","xxx",{"Make Active"=>'doactive',"Make Inactive"=>'doinactive',"Delete"=>'delete'},{:prompt=>"Select Action"},{:id=>"doaction",:onchange=>"return change(this.value);"}) %>
+
+
+                                        <select name="make_action" id="make_action" onchange="return doAsAction(this);">
+						<option value="">Select Action</option>
+						<option value="active">Make Active</option>
+						<option value="inactive">Make Inactive</option>
+						<option value="all">Show all</option>
+						<option value="delete">Delete</option>
+					</select>
+
+                                        <b style="background-color:red ; color:white; text-align:left; height:20px"><%= flash[:notice] %> </b>
+
+                                        showing <b style="background-color:#A9FFFE; color:red; text-align:left; height:20px"><%=@visitors.size%></b> records
+                                        <%#=select_tag 'per_page', options_for_select([["SelectAll",""],["All","all"]], params[:per_page]), :onchange=>"if(this.value == 'all'){window.location=('/visitors')}" %>
+                                        </td>
+                                </tr>
+                        </table>
+
+                        <table width="90%" height="40%" align="center" border="1" rules="rows" style="background-image:url(/images/white.gif); color:#A27D50; font-size:14px">
+
+                                <tr>
+                                        <th style="background-image:url(/images/image7.jpeg) ; width:30px;">
+
+                                              <%#=check_box "checkall","",:onclick=>"check_all();",:id=>"checkall"%>
+                                              <%=check_box_tag 'checkall','',false ,:onclick=>'checkAll();' %>
+                                              <%#=select_tag 'action', options_for_select([["Select Action",""],["Delete","delete"], ["Active","active"],["Inactive","inactive"]], params[:action]), :onchange=>"change(this.value);" %>
+
+                                        </th>
+                                        <th style="background-color:#E8D892; color:#705A03; text-align:left; height:30px">
+                                               <%=link_to "Name",  :sort => "name", :sorten => @sorten_list, :page=>params[:page]%>
+                                        </th>
+                                         <th style="background-color:#E8D892; color:#705A03; text-align:left; height:30px">
+                                               <%=link_to "Email",  :sort => "email", :sorten => @sorten_list, :page=>params[:page]%>
+                                        </th>
+
+                                         <th style="background-color:#E8D892; color:#705A03; text-align:left; height:30px">
+                                                <%=link_to "Created On",  :sort => "created_at", :sorten => @sorten_list, :page=>params[:page]  %>
+                                        </th>
+
+                                        <th style="background-image:url(/images/image7.jpeg) ; width:50px">
+                                               Delete
+                                        </th>
+
+                                </tr>
+
+                                <% @visitors.each do |a|%>
+                                        <tr>
+                                                 <td style="background:#16276C; background-image:url(/images/check.png) ; width:30px; text-align:center">
+                                                              <%#=check_box_tag "admin_id", a.id, false %>
+                                                              <%=check_box_tag 'chk[]',a.id,false , :id=>'iId'%>
+                                                </td>
+
+                                                <td style="font-size:13px">
+                                                        <%=link_to a.name, edit_visitor_path(a.id), :title=>"Click to edit #{a.name}"%>
+                                                </td>
+                                                <td style="font-size:13px">
+                                                        <%=a.email %>
+                                                </td>
+                                                <td style="font-size:13px">
+
+                                                        <%=a.created_at.strftime("%d %b %Y")%>
+                                                </td>
+                                                <td style="background:#16276C; font-size:13px">
+
+                                                        <%#=link_to "Delete", visitor_path(a.id), :method=> "delete", :confirm=> "Really u wanna delete?"%>
+                                                        <%= link_to image_tag("del.jpeg", :size => "50x30"), visitor_path(a.id), :method=> "delete", :confirm=> "U wanna delete?"%>
+                                                </td>
+                                        </tr>
+                                <% end %>
+                                <%end%>
+        <%else%>
+                                 <table width= "42%" height="30%" align="center" style="background-color:#FFE67D; color:#705A03; text-align:center">
+                                       <tr>
+                                                <td>--- No search results found --- </td>
+                                        </tr>
+                                 </table>
+        <% end %>
+                </table>
+                </br>
+
+                <table align="center" style="background-color:white; outline:1px solid white; color:white; background: none repeat scroll 0 0 rgba(82, 82, 82, 0.7);">
+                      <tr> <td>  <%= will_paginate @visitors%> </td> </tr>
+                </table>
+

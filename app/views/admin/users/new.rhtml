@@ -1,0 +1,89 @@
+
+                              <table width="1000" align="center" bgcolor="black">
+                                <tr>
+                                        <td width="15%" style="background-image:url(/images/grn.gif) ; outline:1px solid white; color:#A27D50; font-weight:bold">
+                                                  <%= link_to "Administrators", "/admin/administrators"%>
+                                        </td>
+
+                                        <td width="15%" style="background-image:url(/images/grn.gif) ; outline:1px solid white; color:#A27D50; font-weight:bold">
+                                                  <%= link_to "Users", "/admin/users"%>
+                                        </td>
+                                         <td width="60%" style="background-color:black ; outline:1px solid white; color:white; text-align:center; color:yellow">
+                                                        Welcome to <%= session[:administrator_name] %>
+                                                   </td>
+
+                                          <td style="background-color:#006666; outline:1px solid white;">
+                                          <% unless session[:administrator_id].nil? %>
+                                                  <%#= link_to 'Logout', admin_admin_area_path(session[:administrator_id]), :method => :delete %>
+                                                  <%= link_to image_tag("logout.jpeg", :size => "100x25"), admin_admin_area_path(session[:administrator_id]), :method=>:delete%>
+                                          <% end %>
+                                          </td>
+                               </tr>
+                            </table>
+
+        </br>
+                            <table>
+                                        <tr>
+                                                <td style="background-image:url(/images/grn.gif) ; outline:1px solid white; color:#A27D50; font-weight:bold">
+                                                      <%= link_to "Back to users", "/admin/users"%>
+                                                </td>
+                                        </tr>
+                        </table>
+
+        <% form_for @user, :url=>{:action=> "create"} do |f|%>
+
+            <table align="center" style="background-image:url(/images/postcard.png); height:350px ;width:600px; color:#A27D50; font-size:14px">
+                        <tr>
+                                <td style="background-color:#F4EFE2; outline:1px solid black ">
+		                        <%=error_messages_for(:user, :order=>[:name,:email,:address])%>
+	                        </td>
+                        </tr>
+                        <tr>
+                                <td height="70%">
+                                        &nbsp;
+                                </td>
+                        </tr>
+                        <tr>
+                                <td width="70%">
+                                        &nbsp;
+                                </td>
+                                <td>
+                                        <table bgcolor="#F4EFE2">
+                                                <tr>
+                                                        <td>
+                                                                <table>
+                                                                        <tr>
+                                                                                <td style="color:#AE5B52; font-size:15px;">Name: </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                                <td style="color:#AE5B52; font-size:15px">Email: </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                                <td style="color:#AE5B52; font-size:15px">Address:</td>
+                                                                        </tr>
+                                                                </table>
+                                                        </td>
+                                                         <td>
+                                                                <table>
+                                                                        <tr>
+                                                                                <td> <%=f.text_field :name, :size=> "15x10"%> </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                                <td><%=f.text_field :email, :size=> "15x10"%> </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                                <td> <%=f.text_field :address, :size=> "15x10"%> </td>
+                                                                        </tr>
+                                                                </table>
+                                                         </td>
+                                                 </tr>
+                                        </table>
+                                        <div align="center">
+                                                <%=f.submit "Enter" %>
+                                        </div>
+                                </td>
+                        <tr>
+                </table>
+
+        <%end%>
+

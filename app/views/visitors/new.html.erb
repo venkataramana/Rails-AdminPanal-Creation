@@ -1,0 +1,111 @@
+
+
+
+                              <table width="1000" align="center" bgcolor="black">
+                                <tr>
+                                        <td width="10%" style="background-image:url(/images/grn.gif) ; outline:1px solid white; color:#A27D50; font-weight:bold">
+                                                  <%= link_to "Visitors", visitors_path %>
+                                        </td>
+
+                                        <td width="10%" style="background-image:url(/images/grn.gif) ; outline:1px solid white; color:#A27D50; font-weight:bold">
+                                                  <%= link_to "Users", "/admin/users"%>
+                                        </td>
+                                         <td width="70%" style="background-color:black ; outline:1px solid white; color:white; text-align:center; color:yellow">
+                                                        Welcome to <%= session[:visitor_name] %>
+                                           </td>
+                                          <td style="background-color:#006666; outline:1px solid white;">
+
+                                                   <%#= link_to "logout", session_path(session[:visitor_id]), :method=>"delete"%>
+                                                <%= link_to image_tag("logout.jpeg", :size => "100x25"), session_path(session[:visitor_id]), :method=>:delete%>
+                                          </td>
+                               </tr>
+                            </table>
+</br>
+
+
+                                <table>
+                                        <tr>
+                                                <td style="background-image:url(/images/grn.gif) ; outline:1px solid white; color:#A27D50; font-weight:bold">
+                                                      <%= link_to "Back to Visitors", "/visitors"%>
+                                                </td>
+                                        </tr>
+                                </table>
+
+                                <table align="center" style="color:#A27D50; font-size:14px">
+                                         <tr>
+                                                 <td style="background-color:red; color:white "><%= flash[:error]%> </td>
+                                        </tr>
+                                        <tr>
+                                                <td style="background-color:#F4EFE2; outline:1px solid black ">
+                                                        <% @visitor.password = @visitor.password_confirmation = nil %>
+		                                       <%=error_messages_for(:visitor, :order=>[:name, :login, :email, :password, :password_confirmation])%>
+	                                        </td>
+                                        </tr>
+                                </table>
+
+                <% form_for @visitor, :visitor, :url=>{:action=> "create"} do |f|%>
+
+                        <table align="center" style="background-image:url(/images/postcard.png); height:350px ;width:600px; color:#A27D50; font-size:14px">
+
+                                <tr>
+                                     <td height=190px>
+                                                &nbsp;
+                                     </td>
+                                </tr>
+                                <tr>
+                                        <td>
+                                        &nbsp;
+                                         </td>
+                                        <td>
+                                                <table bgcolor="#F4EFE2">
+                                                        <tr>
+                                                                <td>
+                                                                        <table>
+                                                                                <tr>
+                                                                                        <td style="color:#AE5B52; font-size:15px;">Visitor Name: </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td style="color:#AE5B52; font-size:15px">Login: </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td style="color:#AE5B52; font-size:15px">Email:</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td style="color:#AE5B52; font-size:15px">Password:</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td style="color:#AE5B52; font-size:15px">
+                                                                                         <%= label_tag 'password_confirmation', 'Confirm Password:' %>
+                                                                                        </td>
+                                                                                </tr>
+                                                                        </table>
+                                                                </td>
+                                                                 <td>
+                                                                        <table>
+                                                                                <tr>
+                                                                                        <td> <%=f.text_field :name, :size=> "15x10"%> </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td> <%=f.text_field :login, :size=> "15x10"%> </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td><%=f.text_field :email, :size=> "15x10"%> </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td> <%=f.text_field :password, :size=> "15x10"%> </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td> <%= f.password_field :password_confirmation, :size=> "15x10"%> </td>
+                                                                                </tr>
+                                                                        </table>
+                                                                 </td>
+                                                         </tr>
+                                                </table>
+                                                        <div style="background-color:#F4EFE2" align="center">
+                                                                <%=f.submit "Enter" %>
+                                                        </div>
+                                        </td>
+                        </tr>
+                </table>
+        <%end%>
+

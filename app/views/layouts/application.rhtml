@@ -1,0 +1,39 @@
+<html>
+        <head>
+        <%if params[:page] %>
+         <title> kvr/admin <%=params[:page]%></title>
+
+         <% else%>
+         <title> kvr/admin 1</title>
+         <%end%>
+         <link rel="shortcut icon" type="image/x-icon" href="/images/clown.gif">
+         <%=javascript_include_tag :defaults%>
+         <%= calendar_date_select_includes %>
+        <%= stylesheet_link_tag "calendar_date_select/red.css" %>
+        <%=javascript_include_tag "jlist.js"%>
+        <%=javascript_include_tag "jquery.validate.js"%>
+
+        </head>
+        <body bgcolor="silver" style="background-image:url(/images/backround2.jpg); background-attachment: fixed; margin-top:-4px; margin-bottom:-4px;">
+
+                <table align="center">
+                 <tr><td><%= image_tag("banner.jpg", :size=>"1010x130")%></td></tr>
+                 </table>
+                 <table align="center" bgcolor="#26386A" height=555px width=1000px style="outline:2px solid #26386A; margin-top:-3px;">
+                        <tr>
+                                <td valign="top" style="background-image:url(/images/white.gif); ">
+                                         <%= yield %>
+                                </td>
+                        </tr>
+                 </table>
+                <table width=1010px align="center" rules="cols" style="background-color:#1FAD66; color:white; font-size:14px;">
+                        <tr>
+                                <td valign="top" style="background-color:#26386A; color:white; text-align:center; height:20px; font-size:12px;">
+                                       <tt>www.kvramana.com © 2011 All rights reserved.</tt>
+                                </td>
+                        </tr>
+                 </table>
+
+        </body>
+</html>
+
